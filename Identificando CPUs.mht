@@ -1,0 +1,764 @@
+Content-Type: multipart/related; start=<op.mhtml.1364305542717.2ab9c1142229802e@192.168.0.115>; boundary=----------0UEcEEw5tBV3gim3nzSFvJ
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/whatcpu.html
+Subject: =?utf-8?Q?Identificando=20CPUs?=
+MIME-Version: 1.0
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=whatcpu.html
+Content-Type: text/html; charset=ISO-8859-1; name=whatcpu.html
+Content-ID: <op.mhtml.1364305542717.2ab9c1142229802e@192.168.0.115>
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/whatcpu.html
+Content-Transfer-Encoding: 8bit
+
+<HTML>
+<HEAD>
+   <TITLE> Identificando CPUs </TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (Win95; I) [Netscape]">
+</HEAD>
+<BODY>
+<BODY TEXT="#000080" BGCOLOR="#FFFFFF" LINK="#004D4D" VLINK="#804040" ALINK="#8080FF">
+<CENTER><IMG SRC="cincpu.jpg"><BR>
+<A HREF="progavan.html"><IMG SRC="anterior.gif" BORDER=0 HEIGHT=14 WIDTH=33></A>
+<A HREF="links.html"><IMG SRC="proxima.gif" BORDER=0 HEIGHT=14 WIDTH=33></A></H1>
+</CENTER>
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Nesta se&ccedil;&atilde;o
+ser&aacute; descrito um programa feito por Jeff Prosise retirado da revista
+<I><FONT SIZE=-1>PC MAGAZINE BRASIL</FONT></I> de abril de 1995. Chama-se
+<FONT SIZE=-1>WHATCPU</FONT> e simplesmente coloca na tela uma mensagem
+identificando o processador da m&aacute;quina em que est&aacute; rodando,
+n&atilde;o entra em detalhes sobre diferentes tipos de um mesmo <I>chip</I>:
+<FONT SIZE=-1>SX, DX, DX2, DX4</FONT>.</P>
+<P><CENTER><IMG SRC="line.jpg"></CENTER><BR>
+
+<P><B><FONT COLOR="#0000FF">PROCESSADORES 8086 e 8088</FONT></B></P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Apareceram nos
+primeiros PCs IBM e compat&iacute;veis. Eram bastante id&ecirc;nticos,
+o 8086 tinha 16 linhas de dados, fornecendo ao barramento de dados uma
+interface de 16 bits. Por outro lado, o 8088 s&oacute; apresentava 8 linhas
+de dados, com uma interface de 8 bits. Como se nota, o 8086 era mais r&aacute;pido,
+uma vez que era capaz de transportar uma palavra de 16 bits inteira de
+ou para o barramento de dados numa opera&ccedil;&atilde;o. J&aacute; o
+8088 precisava de duas opera&ccedil;&otilde;es de 1 byte (8 bits) cada.
+Fora isso, o funcionamento dos dois processadores era similar, utilizando
+o mesmo conjunto de instru&ccedil;&otilde;es e contendo 20 linhas de endere&ccedil;amento,
+ou seja, acesso a 1Mb.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Todos os membros
+da fam&iacute;lia x86 cont&ecirc;m um registrador <FONT SIZE=-1>FLAGS</FONT>,
+que identifica o estado atual do processador. Os bits de 12 a 15 deste
+registrador est&atilde;o sempre ativados (ativado significa conter o valor
+1) no caso do 8086/8088, n&atilde;o importando o quanto se tente desativ&aacute;-los.
+O que o programa <FONT SIZE=-1>WHATCPU</FONT> faz &eacute; tentar ativar
+os bits 12 e 14 e limpar os bits 13 e 15, utilizando um sequ&ecirc;ncia
+de instru&ccedil;&otilde;es que copia os valores do registrador de e para
+a pilha, usando instru&ccedil;&otilde;es <FONT SIZE=-1>AND</FONT> e <FONT SIZE=-1>OR</FONT>.
+Se os bits 12 a 15 permanecerem ativados, ent&atilde;o o processador deve
+ser um 8086.</P>
+<P><CENTER><IMG SRC="line.jpg"></CENTER><BR>
+
+<P><B><FONT COLOR="#0000FF">PROCESSADOR 80286</FONT></B></P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Sucessor dos processadores
+8086 e 8088, foi utilizado pela primeira vez no IBM PC/AT. Com o 80286
+surgiram o modo protegido e quatro linhas novas de endere&ccedil;amento,
+passando para 24 linhas no total, o que se traduzia num acesso de at&eacute;
+16Mb. Da mesma forma, &eacute; poss&iacute;vel identificar este processador
+atrav&eacute;s dos bits de 12 a 15 do registrador <FONT SIZE=-1>FLAGS</FONT>.
+Se estes bits est&atilde;o sempre ativados num 8086 ou 8088, est&atilde;o
+desativados num 80286 em modo real. Quando o teste que o programa executa
+&eacute; falso para o 8086 ou 8088, &eacute; verificado se os bits de 12
+a 15 est&atilde;o desativados. Se estiverem, &eacute; porque o processador
+deve ser um 80286.</P>
+<P><CENTER><IMG SRC="line.jpg"></CENTER><BR>
+
+<P><B><FONT COLOR="#0000FF">PROCESSADOR 80386</FONT></B></P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Aumentou ainda
+mais a capacidade de endere&ccedil;amento e introduziu o modo virtual (V86).
+O 80386 possu&iacute;a 32 linhas de endere&ccedil;amento, acesso de at&eacute;
+4Gb. O modo V86 veio permitir a execu&ccedil;&atilde;o dos programas mais
+antigos em m&aacute;quinas virtuais (VM ou <I>Virtual Machines</I>) como
+se fosse em modo real, conjuntamente com outros programas em modo protegido.
+O 80386 tinha duas vers&otilde;es, uma <FONT SIZE=-1>DX</FONT> e uma <FONT SIZE=-1>SX</FONT>.
+O 80386<FONT SIZE=-1>SX</FONT> continha somente 24 linhas de endere&ccedil;amento,
+enquanto que o 80386<FONT SIZE=-1>DX</FONT> tinha 32 linhas. Contudo, do
+ponto de vista do software, eram id&ecirc;nticos. A diferen&ccedil;a estava
+na largura da interface para barramento de dados.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>No 80386, o registrador
+<FONT SIZE=-1>FLAGS</FONT> foi expandido de 16 para 32 bits e passou a
+se chamar <FONT SIZE=-1>EFLAGS</FONT>. O bit 18 do registrador <FONT SIZE=-1>EFLAGS</FONT>
+n&atilde;o foi definido e n&atilde;o poder&aacute; ser ativado. No 80486
+este bit tornou-se o <I>Alignment Check </I>(AC), utilizado para capturar
+acessos &agrave; mem&oacute;ria n&atilde;o-alinhados (tentativas de ler
+uma palavra num endere&ccedil;o que reside nos limites de um byte).</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Desta forma, o
+programa l&ecirc; o registrador <FONT SIZE=-1>EFLAGS</FONT> e tenta ativar
+o bit AC. Se o valor do bit n&atilde;o puder ser alterado, o programa pode
+concluir que a m&aacute;quina &eacute; um 80386 e responde de acordo.</P>
+<P><CENTER><IMG SRC="line.jpg"></CENTER><BR>
+
+<P><B><FONT COLOR="#0000FF">PROCESSADOR 80486, PENTIUM e OUTROS</FONT></B></P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>O&nbsp;80486 trouxe
+avan&ccedil;os sobre a linha 80386, projetados para elevar o desempenho.
+Trouxe incorporado no <I>chip</I> um c&oacute;digo unificado e um cache
+de dados compostos de veloz RAM est&aacute;tica. A vers&atilde;o <FONT SIZE=-1>DX</FONT>
+cont&eacute;m um coprocessador matem&aacute;tico integrado ou unidade de
+ponto flutuante (FPU ou <I>Flooting Point Unit</I>). Os modelos <FONT SIZE=-1>SX</FONT>
+s&atilde;o equivalentes, s&oacute; que com a FPU desativada. Os demais
+modelos 80486<FONT SIZE=-1>DX2</FONT> e 80486<FONT SIZE=-1>DX4</FONT> pertencem
+&agrave; classe <FONT SIZE=-1>DX</FONT>, utilizam tecnologia multiplicadora
+de rel&oacute;gio para melhorar o desempenho.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>O Pentium trouxe
+mais velocidade aos processadores da fam&iacute;lia x86. Tem uma interface
+de 64 bits para o barramento de dados, arquitetura superescalar (pode executar
+mais de uma instru&ccedil;&atilde;o ao mesmo tempo), caches de c&oacute;digos
+e de dados separados e uma FPU com <I>pipeline</I>.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Com a desativa&ccedil;&atilde;o
+dos processadores 8086, 8088, 80286 e 80386, um programa pode distinguir
+CPUs 80486<FONT SIZE=-1>SX</FONT>, 80486<FONT SIZE=-1>DX</FONT> e 80486<FONT SIZE=-1>DX2</FONT>
+de CPUs 80486<FONT SIZE=-1>DX4</FONT> e Pentium atrav&eacute;s de tentativas
+de ativa&ccedil;&atilde;o do bit 21 do registrador <FONT SIZE=-1>EFLAGS</FONT>.
+Tanto no 80486<FONT SIZE=-1>DX4</FONT>, quanto no Pentium, este bit &eacute;
+conhecido como bit <FONT SIZE=-1>ID</FONT>. Estes dois &uacute;ltimos processadores
+incorporaram uma nova instru&ccedil;&atilde;o chamada <FONT SIZE=-1>CPUID</FONT>,
+que retorna a informa&ccedil;&atilde;o de identifica&ccedil;&atilde;o da
+CPU. Se o bit <FONT SIZE=-1>ID</FONT> n&atilde;o puder ser alterado, &eacute;
+sinal seguro de que a CPU &eacute; um 80486 (o programa <FONT SIZE=-1>WHATCPU</FONT>
+tenta ativar este bit, se n&atilde;o consegue &eacute; porque a m&aacute;quina
+&eacute; um 80486). Entretanto se o bit <FONT SIZE=-1>ID</FONT> puder ser
+ativado, devem ser realizados testes adicionais para determinar se o processador
+&eacute; um 80486<FONT SIZE=-1>DX4</FONT>, um Pentium, ou processador mais
+recente.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>Se a instru&ccedil;&atilde;o
+<FONT SIZE=-1>CPUID</FONT> for chamada com o registrador <FONT SIZE=-1>EAX</FONT>
+contendo o valor 1, o retorno da instru&ccedil;&atilde;o ser&aacute; depositado
+no pr&oacute;prio registrador <FONT SIZE=-1>EAX</FONT>, identificando o
+n&iacute;vel de passo da CPU (semelhante a um n&uacute;mero de vers&atilde;o
+para software), modelo e fam&iacute;lia. O termo fam&iacute;lia, neste
+caso, se refere ao 80486, Pentium, etc. O c&oacute;digo <FONT SIZE=-1>ID</FONT>
+identificador de fam&iacute;lia est&aacute; contido nos bits 8 a 11. Para
+separar os processadores Pentium de outras CPUs, o programa executa uma
+instru&ccedil;&atilde;o <FONT SIZE=-1>CPUID</FONT> e examina o resultante
+c&oacute;digo <FONT SIZE=-1>ID</FONT> de fam&iacute;lia. Um Pentium &eacute;
+identificado pelo valor 5, um valor 4 identifica um 80486<FONT SIZE=-1>DX4</FONT>.</P>
+
+<P><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TT></B>O programa <FONT SIZE=-1>WHATCPU</FONT>
+foi feito numa &eacute;poca onde ainda n&atilde;o existiam processadores
+como o MMX, desta forma novas CPUs poder&atilde;o retornar diferentes c&oacute;digos
+<FONT SIZE=-1>ID</FONT> de fam&iacute;lia. Tentando driblar esta situa&ccedil;&atilde;o,
+o programa mostra o c&oacute;digo <FONT SIZE=-1>ID</FONT> de fam&iacute;lia
+seguido por &quot;86&quot;, para c&oacute;digos diferentes de 4 ou 5. Entretanto
+&eacute; prov&aacute;vel que o programa n&atilde;o funcione perfeitamente
+com os sucessores do Pentium.</P>
+
+<P>A seguir est&aacute; a listagem do programa (pressione a tecla SHIFT
+ao clicar sobre o link, para obter o fonte) 
+<FONT SIZE=-1><A HREF="whatcpu.asm">WHATCPU</A></FONT>:</P>
+
+<P><CENTER><IMG SRC="line.jpg"></CENTER><BR>
+
+<P>;<I>Programa de Jeff Prosise, PC Magazine Abr 1995</I>. <BR>
+;<B>E-mail</B>: pcmagbr@eab.com.br </P>
+
+<P><B><TT><FONT COLOR="#FF0000"><FONT SIZE=+1>CPUID MACRO</FONT></FONT></TT></B><FONT COLOR="#0000FF">
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT>db 00Fh, 0A2h</TT></B></FONT><B>
+</B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+;<I>Macro para a instru&ccedil;&atilde;o</I>
+<FONT SIZE=-1>CPUID</FONT> <BR>
+<B><TT><FONT COLOR="#FF0000"><FONT SIZE=+1>ENDM</FONT></FONT></TT></B></P>
+
+<P><B><TT><FONT COLOR="#FF0000">code segment<BR>
+</FONT><FONT COLOR="#0000FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assume
+cs:code, ds:code <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; org 100h</FONT></TT></B><BR>
+</P>
+
+<P><B><TT><FONT COLOR="#0000FF">begin: jmp short main </FONT></TT></B></P>
+
+<P><B><TT><FONT COLOR="#0000FF">msg_8086 db</FONT></TT></B> &quot;<I>&Eacute;
+um 8086 ou um 8088!</I>&quot;,13,10,&quot;$&quot;<BR>
+<B><TT><FONT COLOR="#0000FF">msg_286 db</FONT></TT></B> &quot;<I>&Eacute;
+um 286!</I>&quot;,13,10,&quot;$&quot;<BR>
+<B><TT><FONT COLOR="#0000FF">msg_386 db</FONT></TT></B> &quot;<I>&Eacute;
+um 386!</I>&quot;,13,10,&quot;$&quot;<BR>
+<B><TT><FONT COLOR="#0000FF">msg_486 db</FONT></TT> </B>&quot;<I>&Eacute;
+um 486!</I>&quot;,13,10,&quot;$&quot;<BR>
+<B><TT><FONT COLOR="#0000FF">msg_586 db</FONT></TT></B> &quot;<I>&Eacute;
+um Pentium!</I>&quot;,13,10,&quot;$&quot;<BR>
+<B><TT><FONT COLOR="#0000FF">msg_other db</FONT></TT> </B>&quot;<I>&Eacute;
+um ?86!</I>&quot;,13,10,&quot;$&quot;</P>
+
+<P><B><TT><FONT COLOR="#FF0000">main proc near<BR>
+</FONT></TT></B>;<BR>
+; <I>Procura um 8086 ou 8088 tentando limpar os bits de 12 a 15 do registrador<BR>
+</I>; <FONT SIZE=-1>FLAGS</FONT>. <I>Num 8086 ou 8088, estes bits est&atilde;o
+sempre ativados</I>.<BR>
+;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">mov dx,offset
+msg_8086</FONT></TT></B> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;;<I>Assume 8086/88<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT COLOR="#0000FF"><B><TT>cli</TT></B>
+</FONT>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;<I>Desativa
+interrup&ccedil;&otilde;es<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pushf</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Salva</I>
+<B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pushf</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Empilha</I>
+<B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT COLOR="#0000FF"><B><TT>pop
+ax</TT></B> </FONT>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Desempilha</I>
+<B><TT>FLAGS</TT></B> <I>em</I> <B><TT>AX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <TT><FONT COLOR="#0000FF"><B>and
+ax</B>, <B>0FFFh</B></FONT></TT><B> </B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; ;<I>Limpa bits 12 a 15<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">or
+ax, 5000h</FONT> </TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;;<I>Ativa bits 12 e 14<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF"> <B><TT>push
+ax</TT></B> </FONT>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Empilha
+</I><B><TT>AX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">popf</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Desempilha
+</I><B><TT>AX</TT></B> <I>em</I> <B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pushf</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Empilha</I>
+<B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pop
+ax</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Desempilha</I>
+<B><TT>FLAGS</TT></B> <I>em</I> <B><TT>AX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">popf</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Restaura
+</I>
+<B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">sti</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Ativa
+interrup&ccedil;&otilde;es<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">and
+ax, 0F000h</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Limpa bits de 0 a 11<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <TT><B><FONT COLOR="#0000FF">cmp
+ax, 0F000h</FONT></B> </TT>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+;<I>Bits 12 a 15 est&atilde;o ativados?<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">jne
+check_286</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; ;<I>N&atilde;o, ent&atilde;o &eacute; um 286 ou superior<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">jmp
+done</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Sim, ent&atilde;o
+&eacute; um 8086/88<BR>
+</I>;<BR>
+; <I>Procura um 286 verificando se os bits de 12 a 15 est&atilde;o limpos
+ap&oacute;s a<BR>
+</I>; <I>opera&ccedil;&atilde;o anterior. Num 286 executado em modo real,
+estes bits estar&atilde;o<BR>
+</I>; <I>sempre limpos</I>.<BR>
+;<BR>
+<B><TT><FONT COLOR="#0000FF">check_286: mov dx, offset msg_286</FONT></TT></B>
+;<I>Assume 286<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">or
+ax, ax</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Bits de 12 a 15
+est&atilde;o limpos?<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">jne
+check_386</FONT> </TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp; ;<I>N&atilde;o, ent&atilde;o &eacute; um 386 ou superior<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">jmp
+done</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Sim, &eacute;
+um 286<BR>
+</I>;<BR>
+; <I>Procura um 386 tentando ativar o bit Alignment Check</I> (<B><TT>AC</TT></B>)
+<I>do registrador<BR>
+</I>; <B><TT>EFLAGS</TT></B>. <I>Este bit n&atilde;o pode ser mudado num
+386</I>.<BR>
+;<BR>
+<B><TT><FONT COLOR="#0000FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .386
+<BR>
+check_386: mov dx, offset msg_386</FONT></TT></B> ;<I>Assume 386<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">cli</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Desativa
+interrup&ccedil;&otilde;es<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <FONT COLOR="#0000FF"><B><TT>pushfd</TT></B>
+</FONT>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Salva</I>
+<B><TT>EFLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pushfd</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Empilha</I> <B><TT>EFLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pop
+eax</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Desempilha
+</I><B><TT>EFLAGS </TT></B><I>em</I> <B><TT>EAX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">mov
+ebx, eax </FONT></TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;;<I>Armazena</I> <B><TT>EAX</TT></B> <I>em</I> <B><TT>EBX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">xor
+eax, 40000h</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;;<I>Alterna
+bit 18<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">push
+eax</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Empilha </I><B><TT>EAX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">popfd</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Desempilha</I><B><TT>
+EAX</TT></B> <I>em</I> <B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pushfd</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Empilha em</I>
+<B><TT>FLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">pop
+eax</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Desempilha</I>
+<B><TT>EFLAGS</TT></B> <I>em</I> <B><TT>EAX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">popfd</FONT></TT></B>
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;;<I>Restaura</I>
+<B><TT>EFLAGS<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">sti</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Ativa interrup&ccedil;&otilde;es<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">and
+eax, 40000h</FONT></TT></B> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+;<I>Limpa todos os bits, exceto o bit 18<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">and
+ebx, 40000h</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+;<I>em</I> <B><TT>EAX </TT></B><I>e </I><B><TT>EBX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">cmp
+eax, ebx</FONT> </TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;;<I>Compara</I><B><TT> EAX</TT></B> <I>e</I> <B><TT>EBX<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">je
+done</FONT></TT></B> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Se
+forem iguais, ent&atilde;o &eacute; um 386<BR>
+</I>;<BR>
+; <I>Procura um 486 tentando ativar o bit</I><B><TT> ID</TT></B> <I>do
+registrador </I><B><TT>EFLAGS</TT></B>. <I>Este bit <BR>
+</I>; <I>n&atilde;o pode ser ativado na maioria dos 486s.<BR>
+</I>;<BR>
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">mov dx, offset msg_486</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; ;<I>Assume
+486<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">cli</FONT> </TT></B>&nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; ;<I>Desativa interrup&ccedil;&otilde;es<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">pushfd</FONT>
+</TT></B>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; ;<I>Salva</I> <B><TT>EFLAGS<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">pushfd</FONT> </TT></B>&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Empilha</I><B><TT> EFLAGS<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">pop eax</FONT> </TT></B>&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>Desempilha</I><B><TT>
+ELFLAGS </TT></B><I>em</I><B><TT> EAX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">mov ebx, eax</FONT> </TT></B>&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>Armazena</I><B><TT> EAX </TT></B><I>em</I><B><TT>
+EBX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">xor eax, 200000h</FONT> </TT></B>&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Alterna bit 21<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">push eax</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; ;<I>Empilha</I><B><TT> EAX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">popfd</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp;;<I>Desempilha </I><B><TT>EAX </TT></B><I>em</I><B><TT>
+EFLAGS<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">pushfd</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;;<I>Empilha</I><B><TT> EFLAGS<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">pop eax</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; ;<I>Desempilha</I><B><TT> EFLAGS </TT></B><I>em</I><B><TT> EAX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">popfd</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp;;<I>Restaura</I><B><TT> EFLAGS<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">sti</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ;<I>Ativa interrup&ccedil;&otilde;es<BR>
+</I>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <FONT COLOR="#0000FF"><B><TT>and eax,
+200000h</TT></B> </FONT>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ;<I>Limpa todos os
+bits, exceto o bit 21<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">and ebx, 200000h</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>em</I><B><TT> EAX</TT></B><I> e</I><B><TT>
+EBX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">cmp eax, ebx</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; ;<I>Compara</I><B><TT> EAX
+</TT></B><I>e</I><B><TT> EBX<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">je done</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; ;<I>Se forem iguais, ent&atilde;o &eacute; um 486<BR>
+</I>;<BR>
+; <I>Tivemos sucesso ao alterar o bit</I> <B><TT>ID</TT></B> <I>do processador.
+Provavelmente &eacute; um<BR>
+</I>; <I>Pentium ou posterior. Mas poderia ser um 486. Por isso, tenha
+cuidado.<BR>
+</I>; <I>Para identificar o processador, use o c&oacute;digo</I> <B><TT>ID</TT></B>
+<I>de fam&iacute;lia informado<BR>
+</I>;<I> pela instru&ccedil;ao</I> <B><TT>CPUID</TT></B>.<BR>
+;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B><TT> <FONT COLOR="#0000FF">mov eax,1</FONT></TT></B>
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>Obt&eacute;m
+o</I> <B><TT>ID</TT></B> <I>da</I> <B><TT>CPU<BR>
+</TT></B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<B><TT><FONT COLOR="#0000FF">CPUID</FONT></TT></B>
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; ;<I>Via instru&ccedil;&atilde;o </I><B><TT>CPUID<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">and eax, 0F00h</FONT> </TT></B>&nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;;<I>Limpa todos os bits, exceto os de
+8 a 11<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">shr eax, 8</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Desloca 8 casas para a direita </I>(<B><TT>EAX</TT></B>=<B><TT>ID
+</TT></B><I>fam&iacute;lia</I>)<BR>
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">mov dx, offset msg_586</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; ;<I>Assume Pentium<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">cmp eax, 5</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;;<I>O </I><B><TT>ID </TT></B><I>da fam&iacute;lia &eacute; 5?<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">je done</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; ;<I>Sim, ent&atilde;o &eacute; um Pentium<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">add al, 30h</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>N&atilde;o
+&eacute; um Pentium,<BR>
+</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">mov byte ptr msg_other[5],al</FONT></TT></B>
+&nbsp;;<I>ent&atilde;o reporta o</I><B><TT> ID<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<FONT COLOR="#0000FF">mov dx, offset msg_other</FONT>
+</TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;;<I>da fam&iacute;lia diretamente<BR>
+</I>;<BR>
+; <I>Mostre o tipo de processador e encerre a sess&atilde;o.<BR>
+</I>;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <TT><B><FONT COLOR="#0000FF">done:
+mov ah, 09h</FONT></B> </TT>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;<I>Mostra a mensagem<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">int
+21h</FONT> </TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;;&quot;<I>&Eacute; um ...</I>&quot;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">mov ah,
+4Ch</FONT> </TT></B>&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;;<I>Retorna ao S.O.<BR>
+</I>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <B><TT><FONT COLOR="#0000FF">int
+21h</FONT></TT></B> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ;<I>via fun&ccedil;&atilde;o 4Ch
+</I></P>
+
+<P><B><TT><FONT COLOR="#FF0000">main endp <BR>
+code ends <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end </FONT><FONT COLOR="#0000FF">begin</FONT>
+</TT></B></P>
+<BR>
+<P><CENTER><IMG SRC="line.jpg"><BR>
+<A HREF=mailto:amaral@inf.ufsm.br><IMG SRC="email.jpg" border="0"></A><BR>
+<FONT SIZE=-4><FONT COLOR="#004FFF">
+&copy;1998 Jeferson B. do Amaral</FONT></FONT>
+</CENTER>
+</BODY>
+</HTML>
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=cincpu.jpg
+Content-Type: image/jpeg; name=cincpu.jpg
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/cincpu.jpg
+Content-Transfer-Encoding: Base64
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEj
+JR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARES
+EhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Nj
+Y2NjY2NjY2NjY2NjY2P/wAARCABQAPoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEA
+AAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIh
+MUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6
+Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZ
+mqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx
+8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAV
+YnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hp
+anN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPE
+xcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDM
+kv8AU3nkCTy7cttO0445P1x/Lmmpdaq00sP2mczIuRGFwT07HB79gapXLpvlLKzM
+jltoJXjLZ5z9P19KrQ20l3JsB2uVHlowJLcEgDj9fcVc5OL0NW7G2L6/ZlBunUKu
+HTcgYv12gk85HIP4cmoG1HUl3lr5SqnGVnQ+4PHY+vrxxWIkbTP+6id3POFU5Hr0
+/wA8ipTIrKSEZiVwG3cqeOuAM/jUe0kK5qTavdwusbX5YsFYMmSFyAecj3/nUX9s
+36srfaZHXgkD0J7nt3H4VTiaRXV4ixdT5g2Z6jnOMe30HFWWaMyq/kiWImQgOu0v
+n1weOBkejZ60udjuD6zqX3orid02g7tvrx/Pj8KBqussu8PclQN24IcY9enSrGmJ
+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
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=anterior.gif
+Content-Type: image/gif; name=anterior.gif
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/anterior.gif
+Content-Transfer-Encoding: Base64
+
+R0lGODlhIQAOAPcAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwMDcwKTI8FUAAKoA
+ANUAAAArAFUrAIArAKorANUrAP8rAABVAFVVAIBVAKpVANVVAP9VAFWAAKqAANWA
+AP+AAACqAFWqAICqAKqqANWqAP+qAADVAFXVAIDVAKrVANXVAP/VAFX/AID/AKr/
+ANX/AAAAVVUAVYAAVaoAVdUAVf8AVQArVVUrVYArVaorVdUrVf8rVQBVVVVVVYBV
+VapVVdVVVf9VVQCAVVWAVYCAVaqAVdWAVf+AVQCqVVWqVYCqVaqqVdWqVf+qVQDV
+VVXVVYDVVarVVdXVVf/VVQD/VVX/VYD/Var/VdX/Vf//VVUAgKoAgNUAgP8AgAAr
+gFUrgIArgKorgNUrgP8rgABVgFVVgIBVgKpVgNVVgP9VgFWAgKqAgNWAgP+AgACq
+gFWqgICqgKqqgNWqgP+qgADVgFXVgIDVgKrVgNXVgP/VgAD/gFX/gID/gKr/gNX/
+gP//gAAAqlUAqoAAqqoAqtUAqv8AqgArqlUrqoArqqorqtUrqv8rqgBVqlVVqoBV
+qqpVqtVVqv9VqgCAqlWAqoCAqqqAqtWAqv+AqgCqqlWqqoCqqqqqqtWqqv+qqgDV
+qlXVqoDVqqrVqtXVqv+AIAD/qlX/qoD/qqr/qtX/qv//qgAA1VUA1YAA1aoA1dUA
+1f8A1QAr1VUr1YAr1aor1dUr1f8r1QBV1VVV1YBV1apV1dVV1f9V1QCA1VWA1YCA
+1aqA1dWA1f+A1QCq1VWq1YCq1aqq1dWq1f+q1QDV1VXV1YDV1arV1dXV1f/V1QD/
+1VX/1YD/1ar/1dX/1f//1VUA/4AA/6oA/9UA/wAr/1Ur/4Ar/6or/9Ur//8r/wBV
+/1VV/4BV/6pV/9VV//9V/wCA/1WA/4CA/6qA/9WA//+A/wCq/1Wq/4Cq/6qq/9Wq
+//+q/wDV/1XV/4DV/6rV/9XV///V/1X//4D//6r////78KCgpICAgP8AAAD/AP//
+AAAA//8A/wD//////ywAAAAAIQAOAEAIkQD/CRxIsKDBgwgPAlh4QOBCfAciHsCH
+DwA/AhcvDlwIQOBEABIfGuRokZ9JkwkJkiQ5cmVCkg1HptwYcmVHhwDwFfx48uTM
+fxxjMqRIkoDRoz+B2ryZdONQkC+dugQaM2LFkA5jFqzYEyVOpkAhHliYdaDVkj1n
+5oxIlqpVohjj8vu5dmxOokwBHEXatC/BgAAAOw==
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=proxima.gif
+Content-Type: image/gif; name=proxima.gif
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/proxima.gif
+Content-Transfer-Encoding: Base64
+
+R0lGODlhIQAOAPcAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwMDcwKTI8FUAAKoA
+ANUAAAArAFUrAIArAKorANUrAP8rAABVAFVVAIBVAKpVANVVAP9VAFWAAKqAANWA
+AP+AAACqAFWqAICqAKqqANWqAP+qAADVAFXVAIDVAKrVANXVAP/VAFX/AID/AKr/
+ANX/AAAAVVUAVYAAVaoAVdUAVf8AVQArVVUrVYArVaorVdUrVf8rVQBVVVVVVYBV
+VapVVdVVVf9VVQCAVVWAVYCAVaqAVdWAVf+AVQCqVVWqVYCqVaqqVdWqVf+qVQDV
+VVXVVYDVVarVVdXVVf/VVQD/VVX/VYD/Var/VdX/Vf//VVUAgKoAgNUAgP8AgAAr
+gFUrgIArgKorgNUrgP8rgABVgFVVgIBVgKpVgNVVgP9VgFWAgKqAgNWAgP+AgACq
+gFWqgICqgKqqgNWqgP+qgADVgFXVgIDVgKrVgNXVgP/VgAD/gFX/gID/gKr/gNX/
+gP//gAAAqlUAqoAAqqoAqtUAqv8AqgArqlUrqoArqqorqtUrqv8rqgBVqlVVqoBV
+qqpVqtVVqv9VqgCAqlWAqoCAqqqAqtWAqv+AqgCqqlWqqoCqqqqqqtWqqv+qqgDV
+qlXVqoDVqqrVqtXVqv+AIAD/qlX/qoD/qqr/qtX/qv//qgAA1VUA1YAA1aoA1dUA
+1f8A1QAr1VUr1YAr1aor1dUr1f8r1QBV1VVV1YBV1apV1dVV1f9V1QCA1VWA1YCA
+1aqA1dWA1f+A1QCq1VWq1YCq1aqq1dWq1f+q1QDV1VXV1YDV1arV1dXV1f/V1QD/
+1VX/1YD/1ar/1dX/1f//1VUA/4AA/6oA/9UA/wAr/1Ur/4Ar/6or/9Ur//8r/wBV
+/1VV/4BV/6pV/9VV//9V/wCA/1WA/4CA/6qA/9WA//+A/wCq/1Wq/4Cq/6qq/9Wq
+//+q/wDV/1XV/4DV/6rV/9XV///V/1X//4D//6r////78KCgpICAgP8AAAD/AP//
+AAAA//8A/wD//////ywAAAAAIQAOAEAIkQD/CRxIsKDBgwYJ8FOoEAA+fAciHsAH
+AIDAAxUtIhTIr6PHjBoJUgQg0eEBgRkHgqxocGXKjTAJhiSI8eVBjx8hFhyp0mVJ
+gQSCCgX5sOZFmzFhumSZdKnKjRghIuWIk5/DgxhRloR48l/Wf1Wtch34tWJEijKZ
+gmW40GHRiBrNTpx5UOjQng9HnqWbtK/fgAAAOw==
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=line.jpg
+Content-Type: image/jpeg; name=line.jpg
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/line.jpg
+Content-Transfer-Encoding: Base64
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEj
+JR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARES
+EhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Nj
+Y2NjY2NjY2NjY2NjY2P/wAARCAAeASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEA
+AAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIh
+MUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6
+Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZ
+mqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx
+8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAV
+YnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hp
+anN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPE
+xcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDv
+JJAi5PAFUjqtuD/rU/76FJq7EWkv+4f5Vw+g6Lp19pMM9xBudt2TvYdyOx9qelvM
+Z3H9q2//AD1T/voUf2rB/wA9U/76rgNRh0HTZ/K+ysz9wrMcfma0dG0fRNVh8yG3
+J7EGRgQffmtY0rR5p3S9P+CJvsdd/asH/PVP++hR/asH/PVP++hWN/whml/8+v8A
+5Ef/ABpf+EM0v/n1/wDIj/40Wo939y/zFqbH9qwf89U/76FH9qwf89U/76FY/wDw
+hml/8+v/AJEf/Gj/AIQzS/8An1/8iP8A40Wo939y/wAw1Nj+1bf/AJ6p/wB9Cj+1
+bf8A56p/30Kxm8GaU3W16f8ATR/8aQeCtJH/AC6H/v6/+NYvyKNr+1YP+eqf99Cl
+/tSD/nqn/fQrG/4Q3S/+fX/yI/8AjR/wh2l4/wCPU/8Afxv8av3Lbu4aGz/akH/P
+VP8Avqj+1IP+eif99VinwZpRGDan/v6/+NH/AAhelf8APqf+/r/41AaG1/akH/PV
+P++hSf2rB/z1T/voVj/8IZpY/wCXU/8Afx/8aP8AhDdLP/Lr/wCRG/xqo8v2g0Nj
++1YP+eqf99Cj+1YP+eqf99Csf/hDNL/59f8AyI/+NH/CGaX/AM+v/kR/8a0tR7v7
+l/mTqbH9qwf89U/76FH9qwf89U/76FY//CGaX/z6/wDkR/8AGj/hDNL/AOfX/wAi
+P/jRaj3f3L/MNTY/tWD/AJ6p/wB9Cj+1YP8Anqn/AH0Kx/8AhDNL/wCfX/yI/wDj
+R/whml/8+v8A5Ef/ABotR7v7l/mGpsf2rB/z1T/voUf2rB/z1T/voVj/APCGaX/z
+6/8AkR/8aP8AhDNL/wCfX/yI/wDjRaj3f3L/ADDU2P7Vg/56p/30KP7Vg/56p/30
+Kx/+EM0v/n1/8iP/AI0f8IZpf/Pr/wCRH/xotR7v7l/mGpsf2rB/z1T/AL6FH9qQ
+f89U/wC+hWP/AMIZpf8Az6/+RH/xo/4QzS/+fX/yI/8AjRaj3f3L/MNTZ/tSD/nq
+n/fVJ/asH/PVP++hWQPB2mf8+p/7+N/jTf8AhCtJzn7IQfaV/wDGspWv7pWhtf2p
+B/z1T/voUn9qQf8APVP++hWR/wAIdpmMfZf/ACI3+NN/4QzSv+fX/wAiP/jVxVPq
+393/AARPyNn+1IP+eqf99Cj+1IP+eqf99Csf/hDNL/59f/Ij/wCNH/CGaX/z6/8A
+kR/8aq1Hu/uX+YtTY/tSAf8ALVP++qP7Ug/56p/30Kx28G6W33rUn/to/wDjQPBu
+lqMC14/66N/jWWl/IrQ3oL2KZsI6k+gNWs1i6X4dsdNuTcW0GyQqVLb2PH4n2rax
+xTly390RWvrczwOmcbgRmuPj8MalaQiK31VkjXoohHH613VIVU9qIzcdgPI9Y0bU
+YLsl0lud3/LRU6/gK6nwPplzaQySXCFDIwIUjkAV1zW8bHkU+ONUHAroqYqU6fs2
+hW1uOA4pcUUtcoxMUYpaKAExRilooATFGKWigBMUYpaKAExRilooATFGKWigBMUY
+paKAExRilooATFGKWigBMUYpaKAExRilooATFGKWigBMUYpaKAExRilooATFGKWi
+gBMUUtFAH//Z
+
+------------0UEcEEw5tBV3gim3nzSFvJ
+Content-Disposition: inline; filename=email.jpg
+Content-Type: image/jpeg; name=email.jpg
+Content-Location: http://www.ime.uerj.br/~alexszt/cursos/softsis/material/asm/tutasm/email.jpg
+Content-Transfer-Encoding: Base64
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEj
+JR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARES
+EhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Nj
+Y2NjY2NjY2NjY2NjY2P/wAARCAAdAB4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEA
+AAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIh
+MUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6
+Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZ
+mqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx
+8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREA
+AgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAV
+YnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hp
+anN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPE
+xcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0
+CiqOr6rbaRZNc3TYA4VR1c+gri5fGk95HsllhtYXOHEQZpQvfB6AnpmtqdGdRXih
+NpHYXuuadaSSxTXIDxoXcLyVH+NVNHtrySV7x55Y4ZV+SJ23d/ve3Fcr4b0h/EGp
+NqFwipZRsQsY7+3v9a9GVQqhVGAOABU1Yxg+VMEeR+KdTu77V50umwIXKJGOigH+
+dZVrbzXdwkNvG0kjHAUCvTfEHhKz1Wc3QdoJj95lGQ34Vc8P+H7PRoMxDzJm+9Kw
+5P8AhXd9cjGmlBWZPLrqL4X0uTSNGjtpiDJks2OxNbFFFec3d3ZZ/9k=
+
+------------0UEcEEw5tBV3gim3nzSFvJ--
